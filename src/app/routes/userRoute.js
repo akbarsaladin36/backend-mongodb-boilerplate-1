@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/userController')
+const authMiddleware = require('../../middleware/auth')
 
 /**
  * @swagger
@@ -8,6 +9,8 @@ const userController = require('../controllers/userController')
  *   get:
  *     summary: Returns the list of all the users
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: The list of the users
@@ -16,9 +19,9 @@ const userController = require('../controllers/userController')
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/User'
+ *                 $ref: '#/components/schemas/UserResponse'
  */
-router.get('/', userController.findAllController)
+router.get('/', authMiddleware.userAuthentication, userController.findAllController)
 
 /**
  * @swagger
@@ -26,6 +29,8 @@ router.get('/', userController.findAllController)
  *   get:
  *     summary: Get the user by username
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: username
@@ -43,7 +48,7 @@ router.get('/', userController.findAllController)
  *       400:
  *         description: The user's data description was not found
  */
-router.get('/detail-user/:username', userController.findOneController)
+router.get('/detail-user/:username', authMiddleware.userAuthentication, userController.findOneController)
 
 /**
  * @swagger
@@ -51,6 +56,8 @@ router.get('/detail-user/:username', userController.findOneController)
  *   post:
  *     summary: Create a new item
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -69,7 +76,7 @@ router.get('/detail-user/:username', userController.findOneController)
  *       404:
  *         description: Some server error
  */
-router.post('/', userController.createUserController)
+router.post('/', authMiddleware.userAuthentication, userController.createUserController)
 
 /**
  * @swagger
@@ -77,6 +84,8 @@ router.post('/', userController.createUserController)
  *   patch:
  *     summary: Update the user data by username
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: username
@@ -102,7 +111,7 @@ router.post('/', userController.createUserController)
  *       404:
  *         description: The bad request error
  */
-router.patch('/detail-user/:username', userController.updateUserController)
+router.patch('/detail-user/:username', authMiddleware.userAuthentication, userController.updateUserController)
 
 /**
  * @swagger
@@ -110,6 +119,8 @@ router.patch('/detail-user/:username', userController.updateUserController)
  *   delete:
  *     summary: Remove the user data by username
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: username
@@ -125,6 +136,6 @@ router.patch('/detail-user/:username', userController.updateUserController)
  *       404:
  *         description: The bad request error
  */
-router.get('/detail-user/:username', userController.deleteUserController)
+router.delete('/detail-user/:username', authMiddleware.userAuthentication, userController.deleteUserController)
 
 module.exports = router

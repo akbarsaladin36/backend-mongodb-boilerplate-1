@@ -16,7 +16,39 @@ const options = {
       },
     ],
     components: {
+      securitySchemes: {
+        bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+        }
+      },
       schemas: {
+        RegisterInput: {
+            type: 'object',
+            properties: {
+                username: {
+                    type: 'string',
+                },
+                email: {
+                    type: 'string',
+                },
+                password: {
+                    type: 'string'
+                }
+            }
+        },
+        LoginInput: {
+            type: 'object',
+            properties: {
+                username: {
+                    type: 'string',
+                },
+                password: {
+                    type: 'string'
+                }
+            }
+        },
         UserCreateInput: {
             type: 'object',
             properties: {
@@ -112,6 +144,9 @@ const options = {
         }
       }
     }
+    // security: [{
+    //   bearerAuth: []
+    // }]
  },
   apis: ['./src/app/routes/*.js'], // files containing annotations as above
 };

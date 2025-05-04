@@ -10,6 +10,10 @@ const helper = {
         const encryptPassword = bcrypt.hashSync(password, salt)
         return encryptPassword
     },
+    checkPassword(bodyPassword, dataPassword) {
+        const checkPassword = bcrypt.compareSync(bodyPassword, dataPassword)
+        return checkPassword
+    },
     generateUuid() {
         const uuid = uuidv4()
         const uuidWithoutHyphens = uuid.replace(/-/g, '');
