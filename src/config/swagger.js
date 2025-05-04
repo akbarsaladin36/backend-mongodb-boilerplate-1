@@ -11,7 +11,7 @@ const options = {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.DB_PORT}/backend11/api/v1`,
+        url: `http://localhost:${process.env.SERVER_PORT}/backend11/api/v1`,
         description: 'Development server',
       },
     ],

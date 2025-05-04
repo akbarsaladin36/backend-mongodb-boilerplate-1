@@ -11,7 +11,7 @@ const connectDB = require('./config/database')
 const setupSwagger = require('./config/swagger');
 
 const app = express()
-const port = process.env.DB_PORT
+const port = process.env.SERVER_PORT
 setupSwagger(app);
 
 app.use(morgan('dev'))
